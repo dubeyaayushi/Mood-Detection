@@ -2,7 +2,33 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <div>Login</div>
+    <div className='h-screen bg-yellow-100 overflow-hidden relative'>
+      <div className='container h-screen flex items-center justify-center px-20 mx-auto'>
+        <div className='w-2/4 h-[90vh] flex items-end bg-[url("https://images.pexels.com/photos/6980355/pexels-photo-6980355.jpeg")] bg-cover bg-center rounded-lg p-10 z-50'>
+          <div>
+            <h4 className='text-5xl text-white font-semibold leading-[58px]'>
+              Create Your <br/> Stories
+            </h4>
+            <p className='text-[20px] text-white leading-6 pr-7 mt-4'>
+              Record your daily thoughts, ideas and experiences in a personal journal.
+            </p>
+          </div>
+        </div>
+
+        <div className='w-2/4 h-[90vh] bg-[#e4d7c4] rounded-r-lg relative p-16 shadow-lg shadow-cyan-200/20 flex items-center'>
+          <form className='w-full'>
+            <h4 className='text-6xl font-semibold mb-7'>Login</h4>
+            <input type='email' placeholder="Email" className='input-box'/>
+            <button type='submit' className='btn-primary'>
+              LOGIN
+            </button>
+
+            <p className='text-xl text-slate-500 text-center my-4'>Or</p>
+            <button type='submit' className=' btn-primary btn-light'>CREATE ACCOUNT</button>
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }
 
