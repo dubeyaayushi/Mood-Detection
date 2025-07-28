@@ -1,4 +1,6 @@
 import React from 'react'
+import PasswordInput from "../../components/PasswordInput" 
+import { FaEye } from "react-icons/fa";
 
 const Login = () => {
   return (
@@ -19,6 +21,9 @@ const Login = () => {
           <form className='w-full'>
             <h4 className='text-6xl font-semibold mb-7'>Login</h4>
             <input type='email' placeholder="Email" className='input-box'/>
+
+           <PasswordInput />
+
             <button type='submit' className='btn-primary'>
               LOGIN
             </button>
