@@ -1,10 +1,25 @@
 import React from 'react'
 import PasswordInput from "../../components/PasswordInput" 
-import { FaEye } from "react-icons/fa";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+const navigate = useNavigate();
+
+  // Function to handle form submission
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+
+  }
+   
   return (
     <div className='h-screen bg-yellow-100 overflow-hidden relative'>
+
+     <div className='login-ui-box right-10 -top-40'/>
+
       <div className='container h-screen flex items-center justify-center px-20 mx-auto'>
         <div className='w-2/4 h-[90vh] flex items-end bg-[url("https://images.pexels.com/photos/6980355/pexels-photo-6980355.jpeg")] bg-cover bg-center rounded-lg p-10 z-50'>
           <div>
@@ -18,18 +33,22 @@ const Login = () => {
         </div>
 
         <div className='w-2/4 h-[90vh] bg-[#e4d7c4] rounded-r-lg relative p-16 shadow-lg shadow-cyan-200/20 flex items-center'>
-          <form className='w-full'>
+          <form onSubmit={handleSubmit} className='w-full' >
             <h4 className='text-6xl font-semibold mb-7'>Login</h4>
-            <input type='email' placeholder="Email" className='input-box'/>
+            <input type='email' placeholder="Email" className='input-box' value={email} onChange={(e) => setEmail(e.target.value)} />
 
-           <PasswordInput />
+           <PasswordInput 
+            
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+           />
 
             <button type='submit' className='btn-primary'>
               LOGIN
             </button>
 
             <p className='text-xl text-slate-500 text-center my-4'>Or</p>
-            <button type='submit' className=' btn-primary btn-light'>CREATE ACCOUNT</button>
+            <button type='submit' className=' btn-primary btn-light' onClick={() => navigate("/sign-up") }>CREATE ACCOUNT</button>
           </form>
         </div>
       </div>
