@@ -12,6 +12,19 @@ const navigate = useNavigate();
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if(!validateEmail(email)){
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if(!password){
+      setError('Password cannot be empty.');
+      return;
+    }
+
+    setError(null)
 
   }
    
@@ -42,6 +55,8 @@ const navigate = useNavigate();
             value={password}
             onChange={(e) => setPassword(e.target.value)}
            />
+
+            {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
 
             <button type='submit' className='btn-primary'>
               LOGIN
