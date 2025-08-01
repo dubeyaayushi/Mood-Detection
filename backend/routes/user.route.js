@@ -1,6 +1,6 @@
 import express from "express";
 import { getUsers } from "../controllers/user.controller.js";
-import { verifyToken } from "../utils/verifyUser.js"; // Importing the verifyToken middleware
+import { verifyToken } from "../utils/verify.User.js"; // Importing the verifyToken middleware
 
 const router = express.Router()
 
