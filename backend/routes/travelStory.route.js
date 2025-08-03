@@ -5,6 +5,8 @@ import upload from '../utils/multer.js';
 import { imageUpload } from '../controllers/travelStory.controller.js'; // Importing the image upload controller function
 import { getAllTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function for getting all travel stories
 const router = express.Router();
+import { deleteImage } from '../controllers/travelStory.controller.js'; // Importing the delete image controller function
+
 
 router.post("/add", verifyToken, addTravelStory);
 
@@ -22,6 +24,8 @@ This is the route handler (also called a controller function) that runs after ve
 
 router.post("/image-upload", upload.single("image") , imageUpload)/* route to upload image */
 
+
+router.delete("/delete-image", deleteImage)/* route to delete image */
 
 export default router;
 
