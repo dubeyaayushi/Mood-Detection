@@ -1,7 +1,8 @@
 import express from 'express';
 import { verifyToken } from '../utils/verify.User.js';
 import { addTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function
-
+import upload from '../utils/multer.js';
+import { imageUpload } from '../controllers/travelStory.controller.js'; // Importing the image upload controller function
 import { getAllTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function for getting all travel stories
 const router = express.Router();
 
@@ -18,6 +19,8 @@ This is the route handler (also called a controller function) that runs after ve
 
  */
 
+
+router.post("/image-upload", upload.single("image") , imageUpload)/* route to upload image */
 
 
 export default router;
