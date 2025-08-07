@@ -6,7 +6,7 @@ import { imageUpload } from '../controllers/travelStory.controller.js'; // Impor
 import { getAllTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function for getting all travel stories
 const router = express.Router();
 import { deleteImage } from '../controllers/travelStory.controller.js'; // Importing the delete image controller function
-
+import { editTravelStory } from '../controllers/travelStory.controller.js';
 
 router.post("/add", verifyToken, addTravelStory);
 
@@ -26,6 +26,8 @@ router.post("/image-upload", upload.single("image") , imageUpload)/* route to up
 
 
 router.delete("/delete-image", deleteImage)/* route to delete image */
+
+router.post("/edit-story/:id", verifyToken, editTravelStory)
 
 export default router;
 
