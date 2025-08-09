@@ -4,13 +4,27 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../utils/axiosInstance'
 import { validateEmail } from '../../utils/helper'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../../redux/slice/userSlice"
+
+
+
 const Login = () => {
 const navigate = useNavigate();
+
+const dispatch = useDispatch();
 
   // Function to handle form submission
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const {loading} = useSelector((state) => state.user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +43,14 @@ const navigate = useNavigate();
 
     //login API call
     try{
+      dispatch(signInStart())
+
       const response = await axiosInstance.post("/auth/signin", {
         email,
         password
       })
       if(response.data){
+        dispatch(signInSuccess(response.data)) 
         navigate("/")
       }
 
@@ -79,9 +96,11 @@ const navigate = useNavigate();
 
             {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
 
-            <button type='submit' className='btn-primary'>
+             {loading ? ( <span className='animate-pulse'>Loadinng...</span>): ( <button type='submit' className='btn-primary'>
               LOGIN
             </button>
+             )}
+
 
             <p className='text-xl text-slate-500 text-center my-4'>Or</p>
             <button type='submit' className=' btn-primary btn-light' onClick={() => navigate("/sign-up") }>CREATE ACCOUNT</button>
