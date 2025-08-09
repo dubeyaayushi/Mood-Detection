@@ -9,7 +9,7 @@ import { deleteImage } from '../controllers/travelStory.controller.js'; // Impor
 import { editTravelStory } from '../controllers/travelStory.controller.js';
 import { deleteTravelStory } from '../controllers/travelStory.controller.js';
 import { updateIsFavourite } from '../controllers/travelStory.controller.js';
-
+import { searchTravelStory } from '../controllers/travelStory.controller.js';
 
 
 router.post("/add", verifyToken, addTravelStory);
@@ -37,7 +37,7 @@ router.delete("/delete-story/:id", verifyToken, deleteTravelStory);
 
 router.put("/update-is-favourite/:id", verifyToken, updateIsFavourite);
 
-
+router.get("/search", verifyToken, searchTravelStory)
 
 
 export default router;
