@@ -2,7 +2,8 @@ import React from 'react'
 import PasswordInput from "../../components/PasswordInput" 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import axiosInstance from '../../utils/axiosInstance'
+import { validateEmail } from '../../utils/helper'
 const Login = () => {
 const navigate = useNavigate();
 
@@ -25,6 +26,26 @@ const navigate = useNavigate();
     }
 
     setError(null)
+
+    //login API call
+    try{
+      const response = await axiosInstance.post("/auth/signin", {
+        email,
+        password
+      })
+      if(response.data){
+        navigate("/")
+      }
+
+    }catch(error){
+
+        if(error?.response?.data?.message){
+          setError(error?.response?.data?.message)
+        }else{
+          setError("Something went wrong, please try again later.")
+        }
+
+    }
 
   }
    

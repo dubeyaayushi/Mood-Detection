@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser"
 import authRoutes from "./routes/auth.route.js"
 import userRoutes from "./routes/user.route.js"
 import travelStoryRoutes from "./routes/travelStory.route.js"
+import cors from "cors"
+
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -20,8 +22,17 @@ mongoose.connect(process.env.MONGO_URI).then(
 
 
 const app = express()
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    
+}))
+
 
 app.use(cookieParser())
+
+
 
 app.use(express.json())//for allowing json objects in req body
 app.use(express.urlencoded({ extended: true }))
