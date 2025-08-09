@@ -10,6 +10,7 @@ import { editTravelStory } from '../controllers/travelStory.controller.js';
 import { deleteTravelStory } from '../controllers/travelStory.controller.js';
 import { updateIsFavourite } from '../controllers/travelStory.controller.js';
 import { searchTravelStory } from '../controllers/travelStory.controller.js';
+import { filterTravelStories } from '../controllers/travelStory.controller.js'; 
 
 
 router.post("/add", verifyToken, addTravelStory);
@@ -39,6 +40,7 @@ router.put("/update-is-favourite/:id", verifyToken, updateIsFavourite);
 
 router.get("/search", verifyToken, searchTravelStory)
 
+router.get("/filter", verifyToken, filterTravelStories)
 
 export default router;
 
