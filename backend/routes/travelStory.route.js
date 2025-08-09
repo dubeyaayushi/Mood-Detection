@@ -8,6 +8,9 @@ const router = express.Router();
 import { deleteImage } from '../controllers/travelStory.controller.js'; // Importing the delete image controller function
 import { editTravelStory } from '../controllers/travelStory.controller.js';
 import { deleteTravelStory } from '../controllers/travelStory.controller.js';
+import { updateIsFavourite } from '../controllers/travelStory.controller.js';
+
+
 
 router.post("/add", verifyToken, addTravelStory);
 
@@ -31,6 +34,10 @@ router.delete("/delete-image", deleteImage)/* route to delete image */
 router.post("/edit-story/:id", verifyToken, editTravelStory)
 
 router.delete("/delete-story/:id", verifyToken, deleteTravelStory);
+
+router.put("/update-is-favourite/:id", verifyToken, updateIsFavourite);
+
+
 
 
 export default router;

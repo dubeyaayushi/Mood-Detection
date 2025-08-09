@@ -159,44 +159,6 @@ export const editTravelStory = async(req, res, next) => {
 
 }
 
-//  export const deleteTravelStory = async(req,res,next) => {
-//         const {id} = req.params
-//         const userId = req.user.id;
-
-//         try{
-//             const travelStory = await TravelStory.findOne({_id: id, userId: userId})
-
-//             if(!travelStory){
-//                 next(errorHandler(404, "Travel Story not found!"))
-//             }
-
-//             //delete travel story from the databse
-//             await travelStory.deleteOne({_id: id, userId: userId})
-
-//              // Check if the image is not a placeholder before deleting
-//     const placeholderImageUrl = `http://localhost:3000/assets/placeholderImage.png`
-
-//             //Extract the file name from the imageUrl
-//             const imageUrl = travelStory.imageUrl;
-//             // const filename = path.basename(imageUrl);
-
-//             //delete the file path
-//             const filePath = path.join(rootDir, "uploads", filename);
-
-//             //check if the file exists
-//             if(fs.existsSync(filePath)){
-//                 return next(errorHandler(404, "Image not found!"))
-//             }
-
-//             //delete the file
-//             await fs.promises.unlink(filePath)
-//             res.status(200).json({message: "Travel Story deleted successfully!"})
-
-//         }catch (error) {
-//             next(error)
-//         }
-//     }
-
 
 export const deleteTravelStory = async (req, res, next) => {
   const { id } = req.params
@@ -236,3 +198,26 @@ export const deleteTravelStory = async (req, res, next) => {
   }
 }
 
+ export const updateIsFavourite = async (req, res, next) => {
+  const { id } = req.params
+  const { isFavorite } = req.body
+  const userId = req.user.id
+
+  try {
+    const travelStory = await TravelStory.findOne({ _id: id, userId: userId })
+
+    if (!travelStory) {
+      return next(errorHandler(404, "Travel story not found!"))
+    }
+
+    travelStory.isFavorite = isFavorite
+
+    await travelStory.save()
+
+    res
+      .status(200)
+      .json({ story: travelStory, message: "Updated successfully!" })
+  } catch (error) {
+    next(error)
+  }
+}

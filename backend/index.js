@@ -24,6 +24,7 @@ const app = express()
 app.use(cookieParser())
 
 app.use(express.json())//for allowing json objects in req body
+app.use(express.urlencoded({ extended: true }))
 
 app.listen(3000,() => {
 
