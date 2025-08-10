@@ -96,7 +96,7 @@ const dispatch = useDispatch();
 
             {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
 
-             {loading ? ( <p className='animate-pulse w-full text-center btn-primary'>Loadinng...</p>): ( <button type='submit' className='btn-primary'>
+             {loading ? ( <p className='animate-pulse w-full text-center btn-primary'>Loading...</p>): ( <button type='submit' className='btn-primary'>
               LOGIN
             </button>
              )}
