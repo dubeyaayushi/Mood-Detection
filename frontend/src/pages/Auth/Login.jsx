@@ -11,7 +11,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/slice/userSlice"
-
+import { useEffect } from 'react'
 
 
 const Login = () => {
@@ -24,8 +24,9 @@ const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const {loading} = useSelector((state) => state.user)
-
+  const {loading, currentUser } = useSelector((state) => state.user)
+   console.log("Initial Redux state - loading:", loading, "currentUser:", currentUser);
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,24 +48,37 @@ const dispatch = useDispatch();
 
       const response = await axiosInstance.post("/auth/signin", {
         email,
-        password
+        password,
       })
+
       if(response.data){
         dispatch(signInSuccess(response.data)) 
         navigate("/")
+      } else {
+        dispatch(signInFailure("An unexpected error occurred!"))
       }
 
     }catch(error){
+      dispatch(signInFailure("An unexpected error occurred!"))
 
-        if(error?.response?.data?.message){
-          setError(error?.response?.data?.message)
-        }else{
-          setError("Something went wrong, please try again later.")
-        }
-
+          if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message)
+      } else {
+        setError("Something went wrong. Please try again.")
+      }
     }
 
   }
+  useEffect(() => {
+    if (!loading && currentUser) {
+      navigate("/")
+    }
+  }, [currentUser, loading, navigate])
+
    
   return (
     <div className='h-screen bg-yellow-100 overflow-hidden relative'>
@@ -91,19 +105,21 @@ const dispatch = useDispatch();
            <PasswordInput 
             
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {setPassword(e.target.value)}}
            />
 
             {error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
 
-             {loading ? ( <p className='animate-pulse w-full text-center btn-primary'>Loading...</p>): ( <button type='submit' className='btn-primary'>
+             {loading ? ( <p className='animate-pulse w-full text-center btn-primary'>Loading...</p>):( <button type='submit' className='btn-primary'>
               LOGIN
             </button>
              )}
 
 
             <p className='text-xl text-slate-500 text-center my-4'>Or</p>
-            <button type='submit' className=' btn-primary btn-light' onClick={() => navigate("/sign-up") }>CREATE ACCOUNT</button>
+            <button type='submit' className=' btn-primary btn-light' onClick={() => navigate("/sign-up") }>CREATE ACCOUNT
+
+            </button>
           </form>
         </div>
       </div>

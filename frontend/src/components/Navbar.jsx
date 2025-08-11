@@ -1,9 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Profile from './Profile'
-
+import axiosInstance from '../utils/axiosInstance'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { signOutSuccess } from '../redux/slice/userSlice'
 
 const Navbar = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate() 
+
+
+    const onLogout = async () => {
+        try {
+            const response = await axiosInstance.post("/user/signout")
+        if(response.data){
+            dispatch(signOutSuccess())
+
+            navigate("/login")
+        }
+        
+        } catch (error) {
+            console.log(error)
+            
+        }
+    }
+
+
 return (
     <div className="bg-gradient-to-r from-yellow-200 via-orange-100 to-yellow-300 flex items-center justify-between px-10 py-2 drop-shadow sticky top-0 z-10 w-full">
         <Link to="/Home">
@@ -13,7 +36,7 @@ return (
             </h1>
         </Link>
 
-        <Profile/>
+        <Profile onLogout={onLogout}/>
     </div>
 )
 }
