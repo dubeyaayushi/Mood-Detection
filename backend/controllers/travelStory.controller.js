@@ -72,7 +72,11 @@ export const imageUpload = async(req, res, next) => {
 
         const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`
 
-        res.status(201).json({ imageUrl })
+        
+        //  Use dynamic host/port
+        // const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+        res.status(201).json({imageUrl})
 
     }catch(error){
         next(error)
