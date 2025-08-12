@@ -1,40 +1,92 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
-const travelStorySchema = new mongoose.Schema({
+// const travelStorySchema = new mongoose.Schema({
      
-    title:{
-        type: String,
-        required: true,
+//     title:{
+//         type: String,
+//         required: true,
+//     },
+
+//     story:{
+//         type: String,
+//         required: true,
+//     },
+
+//     visitedLocation:{
+//         type: [String],
+//         default:[]
+//     },
+//     isFavorite: {
+//         type: Boolean,
+//         default: false,
+//     },
+
+//     userId: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "User",
+//       required: true,
+//     },
+
+//     userId: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "User",
+//         required: true,
+//     }
+// }, 
+
+// {timestamps: true}
+
+// )
+
+
+// const TravelStory = mongoose.model('TravelStory', travelStorySchema);
+
+// export default TravelStory;
+
+
+import mongoose, { Schema } from "mongoose"
+
+const travelStorySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
     },
 
-    story:{
-        type: String,
-        required: true,
+    story: {
+      type: String,
+      required: true,
     },
 
-    visitedLocation:{
-        type: [String],
-        default:[]
+    visitedLocation: {
+      type: [String],
+      default: [],
     },
+
     isFavorite: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
 
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    }
-}, 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-{timestamps: true}
+    imageUrl: {
+      type: String,
+      required: true,
+    },
 
+    visitedDate: {
+      type: Date,
+      required: true,
+    },
+  },
+  { timestamps: true }
 )
 
+const TravelStory = mongoose.model("TravelStory", travelStorySchema)
 
-const TravelStory = mongoose.model('TravelStory', travelStorySchema);
-
-export default TravelStory;
-
-
+export default TravelStory

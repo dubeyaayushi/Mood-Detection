@@ -13,7 +13,9 @@ const Home = () => {
   const getAllTravelStories = async () => {
     try {
       const response = await axiosInstance.get("/travel-story/get-all")
-      
+      console.log("Full response:", response.data); // see entire API payload
+        console.log("Stories array:", response.data.stories); // see only stories
+
       if(response.data && response.data.stories){
         setAllStories(response.data.stories);
       }
@@ -42,18 +44,30 @@ const Home = () => {
         <div className="flex-1">
           {
             allStories.length > 0 ? (
-              <div className='gird grid-cols-2 gap-4'>
+              <div className='grid grid-cols-2 gap-4'>
                 {
                   allStories.map((item) => {
                    
                     return(
-                      <TravelStoryCard key={item._id} imageUrl={item.imageUrl}
-                      isFavourite={item.isFavourite} onEdit={()=> handleEdit(item)}
-                      onClick={() => handleViewStory(item)}
-                      onFavouriteClick= {() => updateIsFavourite(item)}
+                      // <TravelStoryCard key={item._id} imageUrl={item.imageUrl}
+                      // isFavourite={item.isFavourite} onEdit={()=> handleEdit(item)}
+                      // onClick={() => handleViewStory(item)}
+                      // onFavouriteClick= {() => updateIsFavourite(item)}
                       
-                      />
-                    )
+                      // />
+                          <TravelStoryCard
+                           key={item._id}
+                            imageUrl={item.imageUrl}
+                            title={item.title}
+                          story={item.story}
+                             date={item.visitedDate} // or createdAt if that’s what you want
+                            isFavourite={item.isFavorite} // match backend spelling
+                              visitedLocation={item.visitedLocation}
+                             onEdit={() => handleEdit(item)}
+                              onClick={() => handleViewStory(item)}
+                              onFavouriteClick={() => updateIsFavourite(item)}
+                            /> 
+                  )
                   })
                 }
               </div>

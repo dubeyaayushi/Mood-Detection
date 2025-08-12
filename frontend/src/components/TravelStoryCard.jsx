@@ -5,8 +5,9 @@ import { FaLocationDot } from "react-icons/fa6"
 import { FaHeart } from "react-icons/fa"
 
 
-const TravelStoryCard = ({imageUrl, title, story, date, isFavourite, onEdit, onClick, onFavouriteClick,  visitedLocation,}) => {
+const TravelStoryCard = ({imageUrl, title, story, date, isFavourite, onEdit, onClick, onFavouriteClick,  visitedLocation = [],}) => {
   return (
+    
     <div className="border border-slate-200 rounded-lg overflow-hidden bg-white hover:shadow-lg hover:shadow-slate-200 transition-all ease-in-out relative cursor-pointer">
 
          <img
@@ -45,6 +46,7 @@ const TravelStoryCard = ({imageUrl, title, story, date, isFavourite, onEdit, onC
           {visitedLocation.map((item, index) =>
             visitedLocation.length === index + 1 ? `${item}` : `${item},`
           )}
+          
         </div>
       </div>
     </div>
