@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar'
 import axiosInstance from '../../utils/axiosInstance'
 import { useState } from 'react'
 import TravelStoryCard from '../../components/TravelStoryCard'
+import { ToastContainer, toast } from "react-toastify"
 
 const Home = () => {
 
@@ -30,7 +31,28 @@ const Home = () => {
 
   const handleViewStory = (data) => {}
 
-  const updateIsFavourite = async (data) => {}
+  const updateIsFavourite = async (data) => {
+
+   const updateIsFavourite = async (storyData) => {
+    const storyId = storyData._id
+
+    try {
+      const response = await axiosInstance.put(
+        "/travel-story/update-is-favourite/" + storyId,
+        {
+          isFavorite: !storyData.isFavorite,
+        }
+      )
+
+      if (response.data && response.data.story) {
+        toast.success("Story updated successfully!")
+        getAllTravelStories()
+      }
+    } catch (error) {
+      console.log("Something went wrong. Please try again.")
+    }
+  }
+  }
 
   useEffect(() => {
     getAllTravelStories();
@@ -61,7 +83,7 @@ const Home = () => {
                             title={item.title}
                           story={item.story}
                              date={item.visitedDate} // or createdAt if that’s what you want
-                            isFavourite={item.isFavorite} // match backend spelling
+                            isFavorite={item.isFavorite} // match backend spelling
                               visitedLocation={item.visitedLocation}
                              onEdit={() => handleEdit(item)}
                               onClick={() => handleViewStory(item)}
@@ -85,6 +107,8 @@ const Home = () => {
       </div>
 
     </div>
+
+     <ToastContainer />
 
    </>
 

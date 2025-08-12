@@ -28,7 +28,13 @@
         @apply w-80 h-[450px] rounded-full bg-amber-500 absolute rotate-45
     }
 
-}
+
+    .icon-btn {
+        @apply text-[22px] text-slate-300 cursor-pointer hover:text-red-500
+    }
+
+} 
+ 
 
 
 

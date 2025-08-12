@@ -5,7 +5,9 @@ import { FaLocationDot } from "react-icons/fa6"
 import { FaHeart } from "react-icons/fa"
 
 
-const TravelStoryCard = ({imageUrl, title, story, date, isFavourite, onEdit, onClick, onFavouriteClick,  visitedLocation = [],}) => {
+const TravelStoryCard = ({imageUrl, title, story, date, isFavorite, onEdit, onClick, onFavouriteClick,  visitedLocation = [],}
+  
+) => { console.log(isFavorite)
   return (
     
     <div className="border border-slate-200 rounded-lg overflow-hidden bg-white hover:shadow-lg hover:shadow-slate-200 transition-all ease-in-out relative cursor-pointer">
@@ -24,23 +26,23 @@ const TravelStoryCard = ({imageUrl, title, story, date, isFavourite, onEdit, onC
       >
        <FaHeart
           className={`icon-btn ${
-            isFavourite ? "text-red-500" : "text-white"
+            isFavorite ? "text-red-500" : "text-white"
           } hover:text-red-500 transition-all duration-200`}
         />
       </button>
        <div className="p-4" onClick={onClick}>
         <div className="flex items-center gap-3">
           <div className="flex-1">
-            <h6 className="text-[16px] font-medium">{title}</h6>
+            <h6 className="text-[20px] font-black">{title}</h6>
 
-            <span className="text-xs text-slate-500">
+            <span className="text-sm text-slate-900">
               {date ? moment(date).format("Do MMM YYYY") : "-"}
             </span>
           </div>
         </div>
-            <p className="text-sm text-slate-600 mt-2">{story?.slice(0, 60)}</p>
+            <p className="text-xl text-slate-700 mt-2">{story?.slice(0, 60)}</p>
 
-        <div className="inline-flex items-center gap-2 text-[13px] text-cyan-600 bg-cyan-200/40 rounded mt-3 px-2 py-1">
+        <div className="inline-flex items-center gap-2 text-[13px] text-amber-600 bg-amber-100 rounded mt-3 px-2 py-1">
           <FaLocationDot className="text-sm" />
 
           {visitedLocation.map((item, index) =>
