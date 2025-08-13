@@ -4,11 +4,26 @@ import axiosInstance from '../../utils/axiosInstance'
 import { useState } from 'react'
 import TravelStoryCard from '../../components/TravelStoryCard'
 import { ToastContainer, toast } from "react-toastify"
+import { IoMdAdd } from "react-icons/io"
+import Modal from "react-modal"
+import AddEditTravelStory from '../../components/AddEditTravelStory'
 
 const Home = () => {
 
   const [allStories, setAllStories] = useState([]);
-  console.log(allStories)
+  // console.log(allStories)
+
+   const [openAddEditModal, setOpenAddEditModal] = useState({
+    isShown: false,
+    type: "add",
+    data: null,
+  })
+
+   const [openViewModal, setOpenViewModal] = useState({
+    isShown: false,
+    data: null,
+  })
+  
 
   //Get all travel stories
   const getAllTravelStories = async () => {
@@ -35,6 +50,13 @@ const Home = () => {
 
    const updateIsFavourite = async (storyData) => {
     const storyId = storyData._id
+
+     const [openAddEditModal, setOpenAddEditModal] = useState({
+    isShown: false,
+    type: "add",
+    data: null,
+  }) 
+
 
     try {
       const response = await axiosInstance.put(
@@ -107,6 +129,38 @@ const Home = () => {
       </div>
 
     </div>
+    {/* Add & Edit Travel Story Modal */}
+
+          <Modal  isOpen={openAddEditModal.isShown}
+        onRequestClose={() => {}}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.2)",
+            zIndex: 999,
+          },
+        }}
+       appElement={document.getElementById("root")}
+        className="w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50"
+      >
+          <AddEditTravelStory
+          storyInfo={openAddEditModal.data}
+          type={openAddEditModal.type}
+          onClose={() => {
+            setOpenAddEditModal({ isShown: false, type: "add", data: null })
+          }}
+          getAllTravelStories={getAllTravelStories}
+          />
+        </Modal>
+
+    <button
+        className="w-16 h-16 flex items-center justify-center rounded-full bg-amber-500 hover:bg-amber-800 fixed right-10 bottom-10"
+        onClick={() => {
+          setOpenAddEditModal({ isShown: true, type: "add", data: null })
+        }}
+      >
+        <IoMdAdd className="text-[32px] text-white" />
+      </button>
+
 
      <ToastContainer />
 

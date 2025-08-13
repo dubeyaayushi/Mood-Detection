@@ -33,6 +33,15 @@
         @apply text-[22px] text-slate-300 cursor-pointer hover:text-red-500
     }
 
+    
+    .btn-delete {
+        @apply bg-rose-50 text-rose-500 shadow-rose-100/0 border border-rose-100 hover:bg-rose-500 hover:text-white
+    }
+
+    .input-label {
+        @apply text-xs text-slate-400
+    }
+
 } 
  
 
