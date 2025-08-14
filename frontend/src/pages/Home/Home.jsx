@@ -43,7 +43,9 @@ const Home = () => {
   }
 
   //Handle Edit Story
-  const handleEdit = (date) => {}
+  const handleEdit = (data) => {
+    setOpenAddEditModal({ isShown: true, type: "edit", data: data })
+  }
 
   const handleViewStory = (data) => {
      setOpenViewModal({ isShown: true, data })
