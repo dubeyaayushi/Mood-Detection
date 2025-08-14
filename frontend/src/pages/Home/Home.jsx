@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify"
 import { IoMdAdd } from "react-icons/io"
 import Modal from "react-modal"
 import AddEditTravelStory from '../../components/AddEditTravelStory'
+import ViewTravelStory from './ViewTravelStory'
 
 const Home = () => {
 
@@ -44,7 +45,9 @@ const Home = () => {
   //Handle Edit Story
   const handleEdit = (date) => {}
 
-  const handleViewStory = (data) => {}
+  const handleViewStory = (data) => {
+     setOpenViewModal({ isShown: true, data })
+  }
 
   const updateIsFavourite = async (data) => {
 
@@ -56,6 +59,11 @@ const Home = () => {
     type: "add",
     data: null,
   }) 
+
+   const [openViewModal, setOpenViewModal] = useState({
+    isShown: false,
+    data: null,
+  })
 
 
     try {
@@ -151,6 +159,62 @@ const Home = () => {
           getAllTravelStories={getAllTravelStories}
           />
         </Modal>
+
+         {/*Add & Edit Travel Story */}
+         <Modal 
+         
+          isOpen={openAddEditModal.isShown}
+        onRequestClose={() => {}}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.2)",
+            zIndex: 999,
+         
+          },
+           }}
+           appElement={document.getElementById("root")}
+            className="w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50"
+         >
+
+
+           <AddEditTravelStory 
+           storyInfo={openAddEditModal.data}
+           type={openAddEditModal.type}
+           onClose={() => {
+           setOpenAddEditModal({ isShown: false, type: "add", data: null })
+          }}
+          getAllTravelStories={getAllTravelStories}
+        />
+         </Modal>
+
+          {/* View travel story modal */}
+      <Modal
+        isOpen={openViewModal.isShown}
+        onRequestClose={() => {}}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.2)",
+            zIndex: 999,
+          },
+        }}
+        appElement={document.getElementById("root")}
+        className="w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50"
+      >
+        <ViewTravelStory
+          storyInfo={openViewModal.data || null}
+          onClose={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShown: false }))
+          }}
+          onEditClick={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShown: false }))
+            handleEdit(openViewModal.data || null)
+          }}
+          onDeleteClick={() => {
+            deleteTravelStory(openViewModal.data || null)
+          }}
+        />
+      </Modal>
+
 
     <button
         className="w-16 h-16 flex items-center justify-center rounded-full bg-amber-500 hover:bg-amber-800 fixed right-10 bottom-10"
