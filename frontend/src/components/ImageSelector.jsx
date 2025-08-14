@@ -1,42 +1,4 @@
-// import React from 'react'
-// import { useState } from 'react'
-// import { useRef } from 'react'
-// import { useEffect } from 'react'
-
-// const ImageSelector = () => {
-
-//      const inputRef = useRef(null)
-//   const [previewUrl, setPreviewUrl] = useState(null)
-
-//   const handleImageChange = (event) => {
-//     const file = event.target.files[0]
-
-//     if (file) {
-//       setImage(file)
-//     }
-//   }
-
-//   return (
-//     <div>
-
-//         <input type="file"
-//         accept="image/*"
-//         ref={inputRef}
-//         onChange={handleImageChange}
-//         className="hidden" />
-
-//         <button>
-
-//         </button>
-//     </div>
-//   )
-// }
-
-// export default ImageSelector
-
-
-
-import React, { useEffect, useRef, useState } from "react"
+ import React, { useEffect, useRef, useState } from "react"
 import { BsUpload } from "react-icons/bs"
 import { MdDeleteOutline } from "react-icons/md"
 
