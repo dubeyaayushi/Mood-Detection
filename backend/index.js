@@ -21,8 +21,21 @@ mongoose.connect(process.env.MONGO_URI).then(
     })
 
 const app = express()
+
+const allowedOrigins = [
+  "http://localhost:5173", // local dev
+  "https://mood-detection-frontend.onrender.com" // deployed frontend
+];
+
 app.use(cors({
-    origin: "https://mood-detection-frontend.onrender.com",
+    origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
