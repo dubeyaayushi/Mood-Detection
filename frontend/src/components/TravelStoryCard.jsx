@@ -7,7 +7,8 @@ import { FaHeart } from "react-icons/fa"
 
 const TravelStoryCard = ({imageUrl, title, story, date, isFavorite, onEdit, onClick, onFavouriteClick,  visitedLocation = [],}
   
-) => { console.log(isFavorite)
+) => { 
+  // console.log(isFavorite)
   return (
     
     <div className="border border-slate-200 rounded-lg overflow-hidden bg-white hover:shadow-lg hover:shadow-slate-200 transition-all ease-in-out relative cursor-pointer">

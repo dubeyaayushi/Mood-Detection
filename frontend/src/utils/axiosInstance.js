@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "https://mood-detection-backend.onrender.com"
+const BASE_URL = "https://mood-detection-frontend.onrender.com/api";
 
 
 const axiosInstance = axios.create({

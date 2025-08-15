@@ -20,19 +20,17 @@ mongoose.connect(process.env.MONGO_URI).then(
         console.log(err)
     })
 
-
 const app = express()
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://mood-detection-frontend.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    // allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
     
 }))
 
 
 app.use(cookieParser())
-
 
 
 app.use(express.json())//for allowing json objects in req body

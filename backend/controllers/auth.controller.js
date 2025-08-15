@@ -66,6 +66,8 @@ export const signin = async(req,res,next) => {
 
         res.status(200).cookie("access_token", token,{
             httpOnly: true,
+            secure: true,       // must be true if using HTTPS (Render uses HTTPS in production)
+            sameSite: "None",   // required for cross-site cookie
         }).json(rest)
     }catch (error) {
         next(error)
