@@ -24,7 +24,7 @@ const app = express()
 
 const allowedOrigins = [
   "http://localhost:5173", // local dev
-  "https://mood-detection-frontend.onrender.com" // deployed frontend
+  // "https://mood-detection-frontend.onrender.com" // deployed frontend
 ];
 
 app.use(cors({

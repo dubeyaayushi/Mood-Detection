@@ -1,10 +1,11 @@
 
-
 import { fileURLToPath } from "url"
 import TravelStory from "../models/travelStory.model.js"
 import { errorHandler } from "../utils/error.js"
 import path from "path"
 import fs from "fs"
+import axios from "axios"
+
 
 export const addTravelStory = async (req, res, next) => {
   const { title, story, visitedLocation, imageUrl, visitedDate } = req.body
@@ -27,6 +28,9 @@ export const addTravelStory = async (req, res, next) => {
       userId,
       imageUrl,
       visitedDate: parsedVisitedDate,
+
+      // New field, blank initially
+      mood: "",
     })
 
     await travelStory.save()
@@ -248,3 +252,49 @@ export const filterTravelStories = async (req, res, next) => {
     next(error)
   }
 }
+
+
+// Analyze mood of an existing travel story
+export const analyzeTravelStoryMood = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const travelStory = await TravelStory.findById(id);
+    if (!travelStory) {
+      return res.status(404).json({ message: "Story not found" });
+    }
+
+    if (!travelStory.story || typeof travelStory.story !== "string") {
+      return res.status(400).json({ message: "Invalid or missing story text" });
+    }
+
+    // Call Ollama with qwen:1.8b
+    const aiResponse = await axios.post("http://localhost:11434/api/chat", {
+      model: "qwen:1.8b",
+      messages: [
+        {
+          role: "user",
+          content: `Analyze the mood of the following travel story and reply with only one word (e.g., Happy, Sad, Excited, Calm, etc.):\n\n${travelStory.story.trim()}`
+        }
+      ]
+    });
+
+    const mood =
+      aiResponse.data?.message?.content?.trim() || "Neutral";
+
+    travelStory.mood = mood;
+    await travelStory.save();
+
+    res.status(200).json({
+      message: "Mood analyzed successfully",
+      mood,
+    });
+  } catch (error) {
+    console.error("Mood analysis error:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

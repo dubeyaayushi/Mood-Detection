@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyToken } from '../utils/verify.User.js';
-import { addTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function
+import { addTravelStory, analyzeTravelStoryMood } from '../controllers/travelStory.controller.js'; // Importing the controller function
 import upload from '../utils/multer.js';
 import { imageUpload } from '../controllers/travelStory.controller.js'; // Importing the image upload controller function
 import { getAllTravelStory } from '../controllers/travelStory.controller.js'; // Importing the controller function for getting all travel stories
@@ -41,6 +41,9 @@ router.put("/update-is-favourite/:id", verifyToken, updateIsFavourite);
 router.get("/search", verifyToken, searchTravelStory)
 
 router.get("/filter", verifyToken, filterTravelStories)
+
+router.put("/:id/analyze", verifyToken, analyzeTravelStoryMood);
+
 
 export default router;
 

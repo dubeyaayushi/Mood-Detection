@@ -5,7 +5,7 @@ import { FaLocationDot } from "react-icons/fa6"
 import { FaHeart } from "react-icons/fa"
 
 
-const TravelStoryCard = ({imageUrl, title, story, date, isFavorite, onEdit, onClick, onFavouriteClick,  visitedLocation = [],}
+const TravelStoryCard = ({imageUrl, title, story, date, isFavorite, onEdit, onClick, onFavouriteClick,  visitedLocation, onAnalyzeClick,mood }
   
 ) => { 
   // console.log(isFavorite)
@@ -31,6 +31,25 @@ const TravelStoryCard = ({imageUrl, title, story, date, isFavorite, onEdit, onCl
           } hover:text-red-500 transition-all duration-200`}
         />
       </button>
+
+      
+
+      <button
+        className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+
+        onClick={() => {
+          onAnalyzeClick(story)
+        }} 
+        // this will come from Home.jsx
+      >
+        Analyze
+      </button>
+
+        <div className="mt-2 text-sm text-blue-600">
+        Mood: {mood ? mood : "Not analyzed yet" }
+         {console.log(story.mood)}
+        </div>
+
        <div className="p-4" onClick={onClick}>
         <div className="flex items-center gap-3">
           <div className="flex-1">
