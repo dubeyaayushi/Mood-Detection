@@ -42,6 +42,8 @@ router.get("/search", verifyToken, searchTravelStory)
 
 router.get("/filter", verifyToken, filterTravelStories)
 
+
+
 router.put("/:id/analyze", verifyToken, analyzeTravelStoryMood);
 
 

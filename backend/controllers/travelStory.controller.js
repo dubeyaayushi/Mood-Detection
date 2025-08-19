@@ -274,9 +274,10 @@ export const analyzeTravelStoryMood = async (req, res, next) => {
       messages: [
         {
           role: "user",
-          content: `Analyze the mood of the following travel story and reply with only one word (e.g., Happy, Sad, Excited, Calm, etc.):\n\n${travelStory.story.trim()}`
+          content: `Analyze the mood of the following travel story and reply with only one word (e.g., Happy, Sad, Excited, Calm,   etc.):\n\n${travelStory.story.trim()}`
         }
-      ]
+      ],
+      stream: false 
     });
 
     const mood =
